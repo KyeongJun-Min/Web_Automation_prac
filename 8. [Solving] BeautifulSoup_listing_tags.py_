@@ -1,3 +1,6 @@
+# 가장 깔끔한 코드
+# select_one을 이용하니까 span.phoneNum을 가져오는게 가능했다.
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -8,19 +11,46 @@ page = response.text
 soup = BeautifulSoup(page,'html.parser')
 
 branches = soup.select("div.branch")
+phones = soup.select("span.phoneNum")
+branch_infos = []
+
+for branch in branches:
+    branch_name = branch.select_one("p.city").get_text()
+    address = branch.select_one("p.address").get_text()
+    phone_number = branch.select_one("span.phoneNum").get_text()
+    
+    branch_infos.append([branch_name, address, phone_number])
+
+
+# 출력 코드
+print(branch_infos)
+
+
+
+# 내가 풀었던 코드
+import requests
+from bs4 import BeautifulSoup
+
+### 코드를 작성하세요 ###
+response = requests.get("https://workey.codeit.kr/orangebottle/index")
+page = response.text
+
+soup = BeautifulSoup(page,'html.parser')
+
+branches = soup.select("div.branch")
+phones = soup.select("span.phoneNum")
 branch_infos = []
 one_branch = []
 
-for branch in branches:
-    tmp_branch = branch.select("p")[0]
+for i in range(0, len(branches)):
+    tmp_branch = branches[i].select("p")[0]
     one_branch.append(tmp_branch.get_text())
     
-    tmp_branch = branch.select("p")[2]
+    tmp_branch = branches[i].select("p")[2]
     one_branch.append(tmp_branch.get_text())
-    print(type(tmp_branch))
     
-    tmp_branch = branch.select("span.phoneNum")
-    print(type(tmp_branch))
+    tmp_branch = phones[i]
+    one_branch.append(tmp_branch.get_text())
     
     branch_infos.append(one_branch)
     one_branch = []
@@ -28,3 +58,11 @@ for branch in branches:
 
 # 출력 코드
 print(branch_infos)
+
+
+
+
+
+
+
+
