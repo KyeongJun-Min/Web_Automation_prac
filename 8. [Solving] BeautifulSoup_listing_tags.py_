@@ -1,0 +1,30 @@
+import requests
+from bs4 import BeautifulSoup
+
+### 코드를 작성하세요 ###
+response = requests.get("https://workey.codeit.kr/orangebottle/index")
+page = response.text
+
+soup = BeautifulSoup(page,'html.parser')
+
+branches = soup.select("div.branch")
+branch_infos = []
+one_branch = []
+
+for branch in branches:
+    tmp_branch = branch.select("p")[0]
+    one_branch.append(tmp_branch.get_text())
+    
+    tmp_branch = branch.select("p")[2]
+    one_branch.append(tmp_branch.get_text())
+    print(type(tmp_branch))
+    
+    tmp_branch = branch.select("span.phoneNum")
+    print(type(tmp_branch))
+    
+    branch_infos.append(one_branch)
+    one_branch = []
+
+
+# 출력 코드
+print(branch_infos)
