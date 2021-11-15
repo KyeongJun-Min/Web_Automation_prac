@@ -1,16 +1,3 @@
-'''
-저번 영상에서 설명드렸던 코스타그램 스크래핑을 시작해 봅시다.
-
-이번 과제에서는 아래 동작들에 대한 Selenium 코드를 짜 주세요:
-
-웹 드라이버 생성 후 코스타그램 (https://workey.codeit.kr/costagram/index) 접속
-코스타그램 로그인
-웹 페이지 끝까지 스크롤
-각 썸네일(포스팅)을 클릭하고, 창이 뜨면 닫기 버튼 누르기
-웹 드라이버 종료
-웹사이트 로딩을 생각해서, wait도 추가해 주는 것 잊지 마세요!
-'''
-
 import time
 
 from selenium import webdriver
@@ -47,6 +34,10 @@ thumb_nails = driver.find_elements_by_xpath("//div[@class='post-list__post post'
 for thumb_nail in thumb_nails:
     thumb_nail.click()
     time.sleep(0.3)
+    split_image_url = driver.find_element_by_xpath("//div[@class='post-container__image']").get_attribute('style').split(" ")[1]
+    image_url = split_image_url[5:-3]
+
+    print(image_url)
     driver.find_element_by_css_selector("button.close-btn").click()
 
 driver.quit()
