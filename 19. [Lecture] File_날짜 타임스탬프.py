@@ -7,8 +7,8 @@ print("만든 날짜 : {}".format(birthtime))
 
 mtimestamp = os.path.getmtime("코스타그램.xlsx")
 mtime = datetime.datetime.fromtimestamp(mtimestamp)
-print("만든 날짜 : {}".format(mtime))
+print("수정한 날짜 : {}".format(mtime))
 
 accesstimestamp = os.path.getatime("코스타그램.xlsx")
 accesstime = datetime.datetime.fromtimestamp(accesstimestamp)
-print("만든 날짜 : {}".format(accesstime))
+print("액세스 날짜 : {}".format(accesstime))
